@@ -1,11 +1,11 @@
 function twoSum(nums: number[], target: number): number[] {
-    const mapa = new Map()
+    const map = new Map()
 
     for (let i = 0; i < nums.length; i++) {
-        if (mapa.has(target - nums[i])) {
-            return [mapa.get(target - nums[i]), i]
+        if (map.has(target - nums[i])) {
+            return [map.get(target - nums[i]), i]
         }
-        mapa.set(nums[i], i);
+        map.set(nums[i], i);
     }
 
     return [];
