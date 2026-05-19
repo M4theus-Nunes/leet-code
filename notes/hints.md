@@ -1,0 +1,1 @@
+# Algoritmo matemático é mais rápido que manipulação de String
