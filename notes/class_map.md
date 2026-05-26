@@ -1,83 +1,137 @@
-const mapa = new Map();
+# Map
 
-console.log('===== SET =====');
-// // Adiciona um par chave-valor
-mapa.set('cor', 'azul');
-mapa.set('tamanho', 'grande');
-mapa.set(1, 'número um');
-console.log(mapa); // Map(3) { 'cor' => 'azul', 'tamanho' => 'grande', 1 => 'número um' }
+## O que é
 
-console.log('\n===== GET =====');
+`Map` é uma estrutura de dados que armazena pares **chave-valor**. Diferente de um objeto comum, a chave pode ser **qualquer tipo** — string, número, objeto, etc.
 
-// Recupera o valor de uma chave
-console.log(mapa.get('cor')); // 'azul'
-console.log(mapa.get(1)); // 'número um'
-console.log(mapa.get('inexistente')); // undefined
+```typescript
+const mapa = new Map()
+```
 
+---
 
-console.log('\n===== HAS =====');
-// Verifica se uma chave existe
-console.log(mapa.has('cor')); // true
-console.log(mapa.has('peso')); // false
-console.log(mapa.has(1)); // true
+## Métodos principais
 
+### set — adiciona ou atualiza um par chave-valor
 
-console.log('\n===== SIZE =====');
-// Retorna a quantidade de elementos
-console.log(mapa.size); // 3
-mapa.set('peso', '5kg');
-console.log(mapa.size); // 4
+```typescript
+mapa.set('cor', 'azul')
+mapa.set('tamanho', 'grande')
+mapa.set(1, 'número um')
 
+console.log(mapa) // Map(3) { 'cor' => 'azul', 'tamanho' => 'grande', 1 => 'número um' }
+```
 
-console.log('\n===== DELETE =====');
-// Remove um par chave-valor específico
-mapa.delete('tamanho');
-console.log(mapa.size); // 3
-console.log(mapa.has('tamanho')); // false
+---
 
+### get — recupera o valor de uma chave
 
-console.log('\n===== KEYS =====');
-// Retorna um iterador com todas as chaves
-const chaves = mapa.keys();
-console.log(chaves)
-for (let chave of chaves) {
-  console.log(chave); // 'cor', 1, 'peso'
+```typescript
+mapa.get('cor')        // 'azul'
+mapa.get(1)            // 'número um'
+mapa.get('inexistente') // undefined
+```
+
+---
+
+### has — verifica se uma chave existe
+
+```typescript
+mapa.has('cor')   // true
+mapa.has('peso')  // false
+mapa.has(1)       // true
+```
+
+---
+
+### size — quantidade de elementos
+
+```typescript
+console.log(mapa.size) // 3
+
+mapa.set('peso', '5kg')
+console.log(mapa.size) // 4
+```
+
+---
+
+### delete — remove um par chave-valor específico
+
+```typescript
+mapa.delete('tamanho')
+console.log(mapa.size)          // 3
+console.log(mapa.has('tamanho')) // false
+```
+
+---
+
+### clear — remove todos os elementos
+
+```typescript
+mapa.clear()
+console.log(mapa.size)     // 0
+console.log(mapa.has('cor')) // false
+```
+
+---
+
+## Iteração
+
+### keys — itera sobre as chaves
+
+```typescript
+for (let chave of mapa.keys()) {
+    console.log(chave) // 'cor', 1, 'peso'
 }
+```
 
+---
 
-console.log('\n===== VALUES =====');
-// Retorna um iterador com todos os valores
-const valores = mapa.values();
-console.log(valores)
-for (let valor of valores) {
-  console.log(valor); // 'azul', 'número um', '5kg'
+### values — itera sobre os valores
+
+```typescript
+for (let valor of mapa.values()) {
+    console.log(valor) // 'azul', 'número um', '5kg'
 }
+```
 
+---
 
-console.log('\n===== ENTRIES =====');
-// Retorna um iterador com [chave, valor]
-const pares = mapa.entries();
-console.log(pares)
-for (let [chave, valor] of pares) {
-  console.log(`${chave} => ${valor}`);
+### entries — itera sobre os pares [chave, valor]
+
+```typescript
+for (let [chave, valor] of mapa.entries()) {
+    console.log(`${chave} => ${valor}`)
 }
 // cor => azul
 // 1 => número um
 // peso => 5kg
+```
 
+---
 
-console.log('\n===== FOR EACH =====');
-// Executa uma função para cada elemento
-mapa.forEach((valor, chave, mapaDeNovo) => {
-  console.log(`Chave: ${chave}, Valor: ${valor}`);
-});
+### forEach — executa uma função para cada elemento
+
+```typescript
+mapa.forEach((valor, chave) => {
+    console.log(`Chave: ${chave}, Valor: ${valor}`)
+})
 // Chave: cor, Valor: azul
 // Chave: 1, Valor: número um
 // Chave: peso, Valor: 5kg
+```
 
+> **Atenção:** no `forEach` do Map a ordem dos parâmetros é `(valor, chave)` — o contrário do que parece intuitivo.
 
-console.log('\n===== CLEAR =====');
-// Remove todos os elementos
-mapa.clear();
-console.log(mapa.size); // 0
-console.log(mapa.has('cor')); // false
+---
+
+## Map vs Objeto
+
+| | Map | Objeto |
+|---|---|---|
+| Tipo da chave | Qualquer tipo | Só string ou symbol |
+| Ordem de inserção | Garantida | Não garantida |
+| Tamanho | `.size` | `Object.keys(obj).length` |
+| Iteração | Nativa | Precisa de `Object.entries()` |
+
+Use `Map` quando precisar de chaves que não sejam string, ou quando a ordem de inserção importar.
